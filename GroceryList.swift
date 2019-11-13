@@ -35,10 +35,10 @@ public class GroceryList
 	*/
 	public func remove_item(name: String) -> Ingredient?
 	{
-		for (index, item) in self.list.enumerated()
+		for (_, item) in self.list.enumerated()
 		{
 
-			if(!item.get_name().elementsEqual(name))/*In list*/
+			if(item.get_name().elementsEqual(name))/*In list*/
 			{
 				self.size -= 1
 				return self.list.remove(item)
@@ -59,7 +59,7 @@ public class GroceryList
 	public func is_member(name: String) -> Bool
 	{
 		var bool_val = false
-		for (index, item) in self.list.enumerated()
+		for (_, item) in self.list.enumerated()
 		{
 			bool_val = item.get_name().elementsEqual(name)
 			if(bool_val)/*In list*/

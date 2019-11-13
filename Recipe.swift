@@ -1,9 +1,9 @@
-
 public class Recipe: Equatable, Hashable
 {
 	//list of ingredients or an array of ingredients, if an array will need to resize dynamically
 	private var meal = ""
 	private var list = Set<Ingredient>()
+  public var list_size = 0
 	private var directions = ""
 	
 	public init(meal_name: String)
@@ -37,21 +37,28 @@ public class Recipe: Equatable, Hashable
 	*	option = 2: Adds the item into the list only if it isn't present
 	*	Returns the boolean value of the successful insertion
 	*/
-	public func add_ingredients(item: Ingredient, option: Int) -> Bool
+	public func add_ingredient(item: Ingredient) -> Bool
 	{
-		var bool_val = false
-		if(option==1)/*Option 1: Always places item into the list*/
-		{
-			list.update(with: item)
-			bool_val = true
-		}
-		else/*Option 2*/
-		{
-			bool_val = (list.insert(item)).0
-		}
-		return bool_val
+		let valid_insert = self.list.insert(item)
+    if(valid_insert.0==true)
+    {
+      self.size += 1
+    }
+    return valid_insert.0
 	}
 	
+  public func remove_ingredient(name: String) -> Ingredient?
+  {
+    for (_, item) in self.list.enumerated()
+		{
+			if(item.get_name().elementsEqual(name))/*In list*/
+			{
+				self.list_size -= 1
+				return self.list.remove(item)
+			}
+		}
+		return nil
+  }
 	/*Overrides the class variable directions with text.
 	Ideally we would like for interactive change of a string so as to not
 		constantly overwrite, but modify instead.*/
@@ -87,7 +94,7 @@ public class Recipe: Equatable, Hashable
 		var retval = 0
 		for (letter1, letter2) in zip(self.meal, item.meal)
 		{
-      retval = Int(String(letter1))! - Int(String(letter2))!   
+			retval = Int(String(letter1))! - Int(String(letter2))!   
 			if(retval != 0)
 			{
 				break

@@ -2,7 +2,8 @@
 public class RecipeList
 {
 	private var list = Set<Recipe>()
-	
+	public var list_size = 0
+
 	public init()
 	{
 	}
@@ -16,19 +17,14 @@ public class RecipeList
 	*	option=2: Insert the item if it isn't already a member
 	*	Returns the boolean value of the success
 	*/
-	public func add_recipe(item: Recipe, option: Int) -> Bool
+	public func add_recipe(item: Recipe) -> Bool
 	{
-		var bool_val = false
-		if(option==1)/*Option 1*/
-		{
-			self.list.update(with: item)
-			bool_val = true
-		}
-		else
-		{
-			bool_val = (self.list.insert(item)).0
-		}
-		return bool_val
+		let valid_insert = self.list.insert(item)
+    if(valid_insert.0==true)
+    {
+      self.size += 1
+    }
+		return valid_insert.0
 	}
 	
 	/*Removes the specified ingredient name if it is present within the list
@@ -36,10 +32,11 @@ public class RecipeList
 	*/
 	public func remove_recipe(name: String) -> Recipe?
 	{
-		for (index, item) in self.list.enumerated()
+		for (_, item) in self.list.enumerated()
 		{
 			if(item.get_meal_name().elementsEqual(name))/*The same item*/
 			{
+        self.list_size -= 1
 				return self.list.remove(item)
 			}
 		}
@@ -60,7 +57,7 @@ public class RecipeList
 	public func is_member(name: String) -> Bool
 	{
 		var bool_val = false
-		for (index, item) in self.list.enumerated()
+		for (_, item) in self.list.enumerated()
 		{
       bool_val = item.get_meal_name().elementsEqual(name)
 			if(bool_val)/*Item is in list*/
