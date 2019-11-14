@@ -1,3 +1,5 @@
+import Foundation
+
 public class FileIO
 {
 	/*https://medium.com/swift-india/saving-data-in-ios-part-2-a8c9f810d5c
@@ -5,13 +7,15 @@ public class FileIO
 	https://www.iosapptemplates.com/blog/ios-development/data-persistence-ios-swift
 	
 	https://www.techotopia.com/index.php/Working_with_Files_in_Swift_on_iOS_8*/
-	public enum Error: Swift.Error
+	public enum ioError: Swift.Error
 	{
         case fileAlreadyExists
+        case fileNotFound
         case invalidDirectory
-        case writtingFailed
-    }
-	
+        case writingFailed
+        case readingFailed
+  }
+
     let fileManager: FileManager
 	
     init(fileManager: FileManager = .default)
@@ -24,11 +28,11 @@ public class FileIO
         guard let url = makeURL(forFileNamed: fileNamed)
 		else
 		{
-            throw Error.invalidDirectory
+            throw ioError.invalidDirectory
         }
         if fileManager.fileExists(atPath: url.absoluteString)
 		{
-            throw Error.fileAlreadyExists
+            throw ioError.fileAlreadyExists
         }
         do
 		{
@@ -37,7 +41,7 @@ public class FileIO
 		catch
 		{
             debugPrint(error)
-            throw Error.writtingFailed
+            throw ioError.writingFailed
         }
     }
     private func makeURL(forFileNamed fileName: String) -> URL?
@@ -50,17 +54,17 @@ public class FileIO
         return url.appendingPathComponent(fileName)
     }
 	
-    func read(fileNamed: String) throws -> Data
+	public func read(fileNamed: String) throws -> Data
 	{
 		guard let url = makeURL(forFileNamed: fileNamed)
 		else
 		{
-			throw Error.invalidDirectory
+			throw ioError.invalidDirectory
 		}
 		guard fileManager.fileExists(atPath: url.absoluteString)
 		else
 		{
-			throw Error.fileNotExists
+			throw ioError.fileNotFound
 		}
 		do
 		{
@@ -69,7 +73,7 @@ public class FileIO
 		catch
 		{
 			debugPrint(error)
-			throw Error.readingFailed
+			throw ioError.readingFailed
 		}
    }
 
