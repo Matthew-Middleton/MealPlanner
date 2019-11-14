@@ -5,15 +5,16 @@ public class GroceryList
 	private var list = Set<Ingredient>()
 	public var size = 0
 	
-	public init()
-	{
-		self.size = 0
-	}
-	
 	public init(new_list: Set<Ingredient>, list_size: Int)
 	{
-		self.list = self.list.union(new_list)
-		self.size = list_size
+		if(new_list!=nil)
+		{
+			self.list = self.list.union(new_list)
+		}
+		if(size>0)
+		{
+			self.size = list_size
+		}
 	}
 	
 	/*Adds an item to the grocery list and increments the size of the list

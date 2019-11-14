@@ -8,19 +8,12 @@ public class Ingredient: Equatable, Hashable
 	private var quantity = 0.0
 	private var unit = ""
 	
-	public init(name: String, item_type: String, quantity: Double)
-	{
-		self.name = name
-		self.item_type = item_type
-		self.quantity = quantity
-	}
-	
 	public init(name: String, item_type: String, quantity: Double, unit: String)
 	{
 		self.name = name
 		self.item_type = item_type
 		self.quantity = quantity
-		self.unit = unit	
+		self.unit = unit
 	}
 	
 	/*Adjusts the quantity of the ingredient by the amount given.
@@ -28,7 +21,7 @@ public class Ingredient: Equatable, Hashable
 	Can be treated as a setter and a getter
 	Returns the quantity
 	*/
-	public func adust_quantity(amount: Double) -> Double
+	public func adjust_quantity(amount: Double) -> Double
 	{
 		self.quantity += amount
 		return self.quantity

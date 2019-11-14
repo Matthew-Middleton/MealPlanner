@@ -4,13 +4,12 @@ public class RecipeList
 	private var list = Set<Recipe>()
 	public var list_size = 0
 
-	public init()
-	{
-	}
-	
 	public init(new_list: Set<Recipe>)
 	{
-		self.list = self.list.union(new_list)
+		if(new_list!=nil)
+		{
+			self.list = self.list.union(new_list)
+		}
 	}
 	/*Inserts the item into the list
 	*	option=1: Inserts the item unconditionally
@@ -22,7 +21,7 @@ public class RecipeList
 		let valid_insert = self.list.insert(item)
     if(valid_insert.0==true)
     {
-      self.size += 1
+      self.list_size += 1
     }
 		return valid_insert.0
 	}

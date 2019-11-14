@@ -3,24 +3,16 @@ public class Recipe: Equatable, Hashable
 	//list of ingredients or an array of ingredients, if an array will need to resize dynamically
 	private var meal = ""
 	private var list = Set<Ingredient>()
-  public var list_size = 0
+	public var list_size = 0
 	private var directions = ""
-	
-	public init(meal_name: String)
-	{
-		self.meal = meal_name
-	}
-	
-	public init(meal_name: String, ingredients: Set<Ingredient>)
-	{
-		self.meal = meal_name
-		self.list = self.list.union(ingredients)
-	}
 	
 	public init(meal_name: String, ingredients: Set<Ingredient>, directions: String)
 	{
 		self.meal = meal_name
-		self.list = self.list.union(ingredients)
+		if(ingredients!=nil)
+		{
+			self.list = self.list.union(ingredients)
+		}
 		self.directions = directions
 	}
 	
@@ -42,7 +34,7 @@ public class Recipe: Equatable, Hashable
 		let valid_insert = self.list.insert(item)
     if(valid_insert.0==true)
     {
-      self.size += 1
+      self.list_size += 1
     }
     return valid_insert.0
 	}
