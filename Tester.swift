@@ -16,10 +16,7 @@ class Tester: XCTestCase {
         var ingredients: Set = [ingr] 
         let rcp = Recipe(meal_name: "Borgir", ingredients: ingredients, directions: "Eat borgir")
         XCTAssertEqual(rcp.get_meal_name(), "Borgir")
-        for (index, item) in rcp.get_ingredients().enumerated()
-        {
-          XCTAssertEqual(item, ingredients)
-        }
+        XCTAssertEqual(rcp.get_ingredients(), ingredients)
         XCTAssertEqual(rcp.get_directions(), "Eat borgir")
     }
     func testRecipeAddIngredient() {
@@ -33,7 +30,7 @@ class Tester: XCTestCase {
         comp.insert(mustard)
 
         rcp.add_ingredient(item: mustard)
-        XCTAssertEqual((rcp.get_ingredients().0).0, ingredients)
+        XCTAssertEqual(rcp.get_ingredients(), ingredients)
     }
     func testRecipeRemoveIngredient() {
         let ingr = Ingredient(name: "Borgir", item_type: "Sandwich", quantity: 1, unit: "Borgir")
@@ -43,7 +40,7 @@ class Tester: XCTestCase {
 
         let rcp = Recipe(meal_name: "Borgir", ingredients: ingredients, directions: "Eat borgir")
         comp.remove(mustard)
-        rcp.remove_ingredient(ingredient: mustard)
-        XCTAssertEqual((rcp.get_ingredients().0).0, ingredients)
+        rcp.remove_ingredient(name: "Mustard")
+        XCTAssertEqual(rcp.get_ingredients(), ingredients)
     }
 }

@@ -6,12 +6,12 @@ public class Recipe: Equatable, Hashable
 	public var list_size = 0
 	private var directions = ""
 	
-	public init(meal_name: String, ingredients: Set<Ingredient>, directions: String)
+	public init(meal_name: String, ingredients: Set<Ingredient>?, directions: String)
 	{
 		self.meal = meal_name
-		if(ingredients!=nil)
+		if(ingredients != nil)
 		{
-			self.list = self.list.union(ingredients)
+			self.list = self.list.union(ingredients!)
 		}
 		self.directions = directions
 	}
@@ -68,9 +68,9 @@ public class Recipe: Equatable, Hashable
 	
 	/*Returns the class variable ingredient
 	*/
-	public func get_ingredients() -> EnumeratedSequence<Set<Ingredient>>
+	public func get_ingredients() -> Set<Ingredient>
 	{
-		return self.list.enumerated()
+		return self.list
 	}
 	
 	/*Returns the directions otherwise states that there aren't any*/

@@ -4,11 +4,11 @@ public class RecipeList
 	private var list = Set<Recipe>()
 	public var list_size = 0
 
-	public init(new_list: Set<Recipe>)
+	public init(new_list: Set<Recipe>?)
 	{
-		if(new_list!=nil)
+		if(new_list != nil)
 		{
-			self.list = self.list.union(new_list)
+			self.list = self.list.union(new_list!)
 		}
 	}
 	/*Inserts the item into the list
@@ -45,9 +45,9 @@ public class RecipeList
 	/*Returns the list as an EnumeratedSequence which takes the form of a
 	* list containing an (index, value) pair
 	*/
-	public func get_list() -> EnumeratedSequence<Set<Recipe>>
+	public func get_list() -> Set<Recipe>
 	{
-		return self.list.enumerated()
+		return self.list
 	}
 	
 	/*Checks if the given recipe name is a member of the list
